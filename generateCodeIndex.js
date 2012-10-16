@@ -116,7 +116,7 @@ function getjQueryMobileLatest() {
 	//Sort files ino arrays by type
 	for(var i=0, l=files.length; i<l; i++) {
 		var file = files[i],
-			href = '<a href="/mobile/' + latestDir  + '/' + file + '">' + file;
+			href = '<a href="/mobile/' + latestDir  + '/' + file + '">' + file + '</a>';
 
 		if(file.indexOf('.js') > -1) {
 			js.push(href);
