@@ -1,6 +1,6 @@
 var fs = require('fs'),
 	util = require('util'),
-	basePath = './';
+	basePath = '/var/www/html/code.jquery.com/';
 
 /* Helper functions */
 
@@ -31,10 +31,14 @@ function uniqueArray(arr) {
 }
 
 /* 
- * Loop though main directory and create a 
- * list of links to previous verisons of jQuery
+ * The following funcitons loop though directories and
+ * generate lists of links to various verisons of 
+ * jQuery, jQuery Mobile, jQuery Colors nad jQuery UI
  *
  */
+
+
+//Get all jQuery versions except the latest
 function getjQueryVersions() {
 	var previous = [],
 		files = fs.readdirSync(basePath);
@@ -57,11 +61,7 @@ function getjQueryVersions() {
 	return reverseSort(previous);
 }
 
-/* 
- * Loop though mobile/latest directory and create a 
- * list of links to jQuery mobile git live version
- *
- */
+// Get git version of jQuery Mobile
 function getjQueryMobileGitVersion() {
 	var path = basePath + '/mobile/latest/',
 		git = [],
@@ -83,11 +83,7 @@ function getjQueryMobileGitVersion() {
 	return reverseSort(git);
 }
 
-/* 
- * Loop though mobile/ directory and create a 
- * list of links to jQuery mobile git live version
- *
- */
+// Get latest version of jQuery Mobile
 function getjQueryMobileLatest() {
 	var js = [],
 		zip = [],
@@ -135,6 +131,7 @@ function getjQueryMobileLatest() {
 	return js.concat(css).concat(zip);
 }
 
+// Get previous releases of jQuery Mobile
 function getjQueryMobilePrevious() {
 	var previous = [],
 		path = basePath + '/mobile/',
@@ -181,6 +178,7 @@ function getjQueryMobilePrevious() {
 	return previous;
 }
 
+// Get jQuery UI git version
 function getjQueryUIGit() {
 	var git = [],
 		path = basePath + '/ui/',
@@ -199,6 +197,7 @@ function getjQueryUIGit() {
 	return reverseSort(git);
 }
 
+// Get all jQuery UI versions except git version
 function getjQueryUIVersions() {
 	var versions = [],
 		path = basePath + '/ui/',
@@ -225,6 +224,7 @@ function getjQueryUIVersions() {
 	return versions;
 }
 
+// Helper function that loops thourgh subdirectories of jQuery UI
 function processjQueryUIVersion(path, dir) {
 	var files = fs.readdirSync(path),
 		ui = [];
@@ -255,6 +255,7 @@ function processjQueryUIVersion(path, dir) {
 	return ui.join('');
 }
 
+// Get all versions of jQuery Colors
 function getjQueryColors() {
 	var git = [],
 		versions = [],
@@ -338,6 +339,7 @@ function getjQueryColors() {
 	};
 }
 
+// Get all versions of Qunit
 function getQunit() {
 	var git = [],
 		latest = [],
@@ -373,6 +375,7 @@ function getQunit() {
 	};
 }
 
+// Open up the template file and replace the placehodlers
 var jqueryColors = getjQueryColors(),
 	qunit = getQunit(),
 	template = fs.readFileSync(basePath + 'index.template.html', 'UTF-8');
@@ -389,4 +392,5 @@ template = template.replace('{{jquery_mobile_stable}}', getjQueryMobileLatest().
 				   .replace('{{jquery_mobile}}', getjQueryMobilePrevious().join(''))
 				   .replace('{{all_jquery_versions}}', getjQueryVersions().join(''));
 
+// Write new index.html file
 fs.writeFileSync(basePath + 'index.html', template, 'UTF-8');
