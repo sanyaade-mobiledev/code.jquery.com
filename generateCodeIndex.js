@@ -1,73 +1,6 @@
 var fs = require('fs'),
 	util = require('util'),
-	basePath = 'code.jquery.com/',
-	fileCollection = [
-		{
-			path: '',
-			files: []
-		},
-		{
-			path: 'colors/',
-			files: []
-		},
-		{
-			path: 'mobile/',
-			files: []
-		},
-		{
-			path: 'qunit/',
-			files: []
-		},
-		{
-			path: 'ui/',
-			files: []
-		}
-	],
-	sections = [
-		"Recent Stable Versions",
-		"jQuery Live Git Copy",
-
-		"jQuery Mobile Stable",
-		"jQuery Mobile Git Copy",
-
-		"jQuery UI Live Git Copy",
-
-		"jQuery Color Live Git Copy",
-
-		"QUnit Live Git Copy",
-		"QUnit 1.10.0",
-
-		"jQuery UI 1.9",
-		"jQuery UI 1.8",
-		"jQuery UI 1.7",
-
-		"All jQuery Mobile Versions",
-		"All jQuery Versions"
-	];
-/*
-
-for(var i=0, l=fileCollection.length; i<l; i++) {
-	var fileColl = fileCollection[i],
-		files = fs.readdirSync(basePath + fileColl.path);
-	
-	for(var j=0, flen=files.length; j<flen; j++) {
-		var file = files[j],
-			stats = fs.statSync(basePath + fileColl.path + file);
-
-		fileColl.files.push({
-			file: file,
-			ts: stats.mtime
-		});
-	}
-
-	fileColl.files.sort(function(a, b) {
-		return a.ts.getTime() - b.ts.getTime();
-	});
-
-	fileColl.files.reverse();
-}
-*/
-
+	basePath = './';
 
 /* Helper functions */
 
@@ -82,13 +15,14 @@ function removeHiddenFiles(files) {
 	}
 }
 
-
+//Sort in rever order
 function reverseSort(arr) {
 	arr.sort();
 	arr.reverse();
 	return arr;
 }
 
+// Make an array of uniue elements
 function uniqueArray(arr) {
     var o = {}, i, l = arr.length, r = [];
     for(i=0; i<l;i+=1) o[arr[i]] = arr[i];
@@ -283,7 +217,7 @@ function getjQueryUIVersions() {
 			stat = fs.statSync(path + file);
 
 		if(stat.isDirectory() && file != 'images') {
-			versions.push('<h1>' + file + '</h1>');
+			versions.push('<h1>jQuery UI ' + file + '</h1>');
 			versions.push(processjQueryUIVersion(path + file, file));
 		}
 	}
@@ -318,7 +252,7 @@ function processjQueryUIVersion(path, dir) {
 	
 	ui.push('</div>');
 	
-	return ui;
+	return ui.join('');
 }
 
 function getjQueryColors() {
@@ -393,7 +327,7 @@ function getjQueryColors() {
 		var obj = colorsObj[version];
 
 		headings.push('<h2>' + version + '</h2>');
-		headings.push((obj.js.concat(obj.svg).concat(obj.plus)).join());
+		headings.push((obj.js.concat(obj.svg).concat(obj.plus)).join(''));
 	}
 	
 	git.sort();
@@ -439,27 +373,20 @@ function getQunit() {
 	};
 }
 
-var jqueryMobileLatest = getjQueryMobileLatest(),
-	jqueryMobileGit = getjQueryMobileGitVersion(),
-	jqueryUIGit = getjQueryUIGit(),
-	jqueryColors = getjQueryColors(),
+var jqueryColors = getjQueryColors(),
 	qunit = getQunit(),
-	jqueryUI = getjQueryUIVersions(),
-	jqueryMobilePrevious = getjQueryMobilePrevious(),
-	jqueryVersions = getjQueryVersions(),
 	template = fs.readFileSync(basePath + 'index.template.html', 'UTF-8');
+	
 
-template = template.replace('{{jquery_mobile_stable}}', getjQueryMobileLatest().join())
-				   .replace('{{jquery_mobile_git_copy}}', getjQueryMobileGitVersion().join())
-				   .replace('{{jquery_ui_git_copy}}', getjQueryUIGit().join())
-				   .replace('{{jquery_color_git}}', jqueryColors.git.join())
-				   .replace('{{qunit_git}}', qunit.git.join())
-				   .replace('{{qunit_release}}', qunit.latest.join())
-				   .replace('{{jquery_ui}}', getjQueryUIVersions().join())
-				   .replace('{{jquery_color_versions}}', jqueryColors.versions.join())
-				   .replace('{{jquery_mobile}}', getjQueryMobilePrevious().join())
-				   .replace('{{all_jquery_versions}}', getjQueryVersions().join());
+template = template.replace('{{jquery_mobile_stable}}', getjQueryMobileLatest().join(''))
+				   .replace('{{jquery_mobile_git_copy}}', getjQueryMobileGitVersion().join(''))
+				   .replace('{{jquery_ui_git_copy}}', getjQueryUIGit().join(''))
+				   .replace('{{jquery_color_git}}', jqueryColors.git.join(''))
+				   .replace('{{qunit_git}}', qunit.git.join(''))
+				   .replace('{{qunit_release}}', qunit.latest.join(''))
+				   .replace('{{jquery_ui}}', getjQueryUIVersions().join(''))
+				   .replace('{{jquery_color_versions}}', jqueryColors.versions.join(''))
+				   .replace('{{jquery_mobile}}', getjQueryMobilePrevious().join(''))
+				   .replace('{{all_jquery_versions}}', getjQueryVersions().join(''));
 
 fs.writeFileSync(basePath + 'index.html', template, 'UTF-8');
-
-console.log(template);
