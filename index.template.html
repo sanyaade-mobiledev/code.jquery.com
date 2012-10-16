@@ -1,0 +1,107 @@
+
+<!doctype html>
+<html>
+<head>
+    <title>jQuery CDN - provided by (mt) Media Temple</title>
+    <style>
+      body {
+        background:#4c4c49;
+        font-family: Arial;
+        font-size:.8em;
+        padding:0;
+        margin:0;
+      }
+      .mt {
+        display:block;
+        width:58px;
+        height:27px;
+        position:relative;
+        cursor:pointer;
+        z-index:999;
+        background: url(http://s1.mt-cdn.net/_images/header-sprite__93245f1.png) no-repeat -360px -224px;
+        text-indent:99em;
+      }
+      a { display:block; color: #222; }
+      a:visited, a:active { color: #222; }
+      div.list a, h1 a { display: inline; }
+      section {
+        background:#EEE7D3;
+        padding:10px;
+        margin:10px;
+      }
+      h1 {
+        background:#AEA895;
+        margin:0;
+        padding:5px;
+        color:#4c4c49;
+      }
+      section h1 {
+         margin-bottom:5px;
+      }
+      h2 {
+        background:#c7c3b6;
+        padding:4px;
+        font-size:.9em;
+        color:#4c4c49;
+      }
+    </style>
+</head>
+<body>
+    <h1 id="head">jQuery CDN - provided by <a href="http://mediatemple.net">(mt) Media Temple</a></h1>
+    <section>
+        <h1>Recent Stable Versions</h1>
+        <a href="/jquery.min.js">jquery.min.js - most recent stable</a>
+        <a href="/jquery.js">jquery.js</a>
+    </section>
+    <section>
+        <h1 id="jquery-git">jQuery Live Git Copy</h1>
+        <a href="/jquery-git.js">jquery-git.js</a>
+    </section>
+
+    <section>
+        <h1 id="jquery-mobile-stable">jQuery Mobile Stable</h1>
+        {{jquery_mobile_stable}}
+    </section>
+
+    <section>
+        <h1 id="jquery-mobile-git">jQuery Mobile Git Copy</h1>
+        {{jquery_mobile_git_copy}}
+    </section>
+
+    <section>
+        <h1>jQuery UI Live Git Copy</h1>
+        {{jquery_ui_git_copy}}
+    </section>
+
+    <section>
+        <h1>jQuery Color Live Git Copy</h1>
+        {{jquery_color_git}}
+    </section>
+
+    <section>
+        <h1 id="qunit-git">QUnit Live Git Copy</h1>
+        {{qunit_git}}
+    </section>
+
+    <section>
+        {{qunit_release}}
+    </section>
+    
+    {{jquery_ui}}
+    
+    <section>
+        <h1>jQuery Color</h1>
+		{{jquery_color_versions}}
+    </section>
+
+   <section>
+        <h1 id="jquery-mobile-all">All jQuery Mobile Versions</h1>
+		
+		{{jquery_mobile}}
+    </section>
+    <section>
+        <h1 id="jquery-all">All jQuery Versions</h1>
+		{{all_jquery_versions}}
+    </section>
+</body>
+</html>
