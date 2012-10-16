@@ -301,7 +301,7 @@ function getjQueryColors() {
 		for(var j=0, len=files.length; j<len; j++) {
 			var file = files[j];
 
-			if(file.indexOf('git') == -1) {
+			if(file.indexOf('git') == -1 && file.indexOf(ver) > -1) {
 				var href = '<a href="/color/'+file+'">' + file + '</a>';
 
 				if(file.indexOf('svg') > -1) {
@@ -326,7 +326,7 @@ function getjQueryColors() {
 	
 	for(var version in colorsObj) {
 		var obj = colorsObj[version];
-
+console.log(obj);
 		headings.push('<h2>' + version + '</h2>');
 		headings.push((obj.js.concat(obj.svg).concat(obj.plus)).join(''));
 	}
